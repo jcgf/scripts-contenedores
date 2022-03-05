@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+    backupmysql:
+      container_name: backup_mysql
+      image: databack/mysql-backup
+      restart: always
+      volumes:
+      - /local/file/path:/db
+      - /path/to/pre-backup/scripts:/scripts.d/pre-backup
+      - /path/to/post-backup/scripts:/scripts.d/post-backup
+      env:
+      - DB_DUMP_TARGET=/db
+      - DB_USER=root
+      - DB_PASS=root
+      - DB_DUMP_FREQ=60
+      - DB_DUMP_BEGIN=2330
+      - DB_SERVER=localhost
+    mysql_db:
+      image: mysql
